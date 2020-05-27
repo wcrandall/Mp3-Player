@@ -1,3 +1,6 @@
+<p align="center">
+   <img width="200px" height="200px" title="Mp3PlayerLogo" alt="Mp3PlayerLogo" src="MediaPlayer\Images\Mp3PlayerIcon.png">
+</p>   
 # MP3 Player 
 > After the user enters their Mp3's location, they are loaded and able to be played. 
 
