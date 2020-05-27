@@ -423,7 +423,14 @@ namespace MediaPlayer
 
             while (!System.IO.Directory.Exists(databasePath.ToString()) && databasePath.ToString() != "")
             {
-                databasePath = new StringBuilder(Interaction.InputBox("Invalid path was entered. Please Enter a valid path or click Cancel. Where is your music?\nNote: Must restart for new music to show", "Database Path", "Enter Directory Here"));
+                if (Properties.Settings.Default.isFirstOpen)
+                {
+                    databasePath = new StringBuilder(Interaction.InputBox("Invalid path was entered. Please Enter a valid path or click Cancel. Where is your music?", "Database Path", "Enter Directory Here"));
+                }
+                else
+                {
+                    databasePath = new StringBuilder(Interaction.InputBox("Invalid path was entered. Please Enter a valid path or click Cancel. Where is your music?\nNote: Must restart for new music to show", "Database Path", "Enter Directory Here"));
+                }
             }
 
 
