@@ -13,7 +13,7 @@
     * sqlite-net-pcl
     * TagLibSharp 
     
-<img title="Mp3PlayerHomescreen" alt="Mp3PlayerHomescreen" src="MediaPlayer\Images\Mp3PlayerHomescreen.png">
+<img title="Mp3PlayerHomescreen" alt="Mp3PlayerHomescreen" src="MediaPlayer\Images\Mp3PlayerHomescreen.PNG">
 
 ## Installing/Running the application  
 * Option 1 
