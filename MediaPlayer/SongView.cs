@@ -258,7 +258,6 @@ namespace MediaPlayer
             {
                 if (!nextSongIsPressedAlready)
                 {
-                    //MessageBox.Show("not even called :D ");
                     nextSongButton.PerformClick();
                 }
 
@@ -425,19 +424,19 @@ namespace MediaPlayer
             while (!System.IO.Directory.Exists(databasePath.ToString()) && databasePath.ToString() != "")
             {
                 databasePath = new StringBuilder(Interaction.InputBox("Invalid path was entered. Please Enter a valid path or click Cancel. Where is your music?\nNote: Must restart for new music to show", "Database Path", "Enter Directory Here"));
-            } 
+            }
+
 
             if (databasePath.ToString() == "")
             {
                 if (Properties.Settings.Default.isFirstOpen)
                 {
-                    this.Close();
+                    System.Environment.Exit(0);
                 }
                 Properties.Settings.Default.databasePath = Properties.Settings.Default.oldDatabasePath;
             }
             else
             {
-                MessageBox.Show(databasePath.ToString());
                 Properties.Settings.Default.databasePath = databasePath.ToString();
                 Properties.Settings.Default.Save();
             }
