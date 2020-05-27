@@ -429,6 +429,10 @@ namespace MediaPlayer
 
             if (databasePath.ToString() == "")
             {
+                if (Properties.Settings.Default.isFirstOpen)
+                {
+                    this.Close();
+                }
                 Properties.Settings.Default.databasePath = Properties.Settings.Default.oldDatabasePath;
             }
             else
