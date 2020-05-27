@@ -14,7 +14,7 @@
     * Run the .exe file 
 
 ### Notes
-* Music must be stored in the user's chosen directory in this manner chosenDirectory\artistName\albumName\songs.mp3
+* Music must be stored in the user's chosen directory in this manner `chosenDirectory\artistName\albumName\songs.mp3`
 
 
 #### Clone
