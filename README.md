@@ -6,12 +6,10 @@
 * Dependencies 
     * sqlite-net-pcl
     * TagLibSharp 
-## Installation 
+## Installing/Running the application  
 * Option 1 
     * Open the .sln file with Visual Studio 
-    * Right Click the solution in Visual Studio
-    * Click Manage nuget packages 
-    * Install sqlite-net-pcl and TagLibSharp
+    * Click Start
 * Option 2 
     * Run the .exe file 
 
