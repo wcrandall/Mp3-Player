@@ -13,14 +13,14 @@
 * Option 2 
     * Run the .exe file 
 
-### Notes
+## Note
 * Music must be stored in the user's chosen directory in this manner `chosenDirectory\artistName\albumName\songs.mp3`
 
 
-#### Clone
+### Clone
 * Clone this repo to your local machine using https://github.com/wcrandall/Mp3Player.git
 
-##### Contributors 
+### Contributors 
 * <a href="https://github.com/wcrandall"> Wyatt Crandall </a> 
 
 
