@@ -18,12 +18,12 @@
 
 ## Installing/Running the application  
 * Option 1 
-    * Download the zip, pull, or clone the project from github
+    * Download the zip, pull, or clone <a href="https://github.com/wcrandall/Mp3-Player">the project from github</a>
     * If zip is downloaded, extract the zip file. 
-    * go into the folder the project is in 
+    * Go into the folder the project is in 
     * Open the .sln file with Visual Studio 
     * Right click on the solution and click manage nuget packages 
-    * search for Microsoft.WindowsAPICodePack.Shell
+    * Search for Microsoft.WindowsAPICodePack.Shell
     * Install it
     * Click Start
     * Note: If an error is given saying `Couldn't process file SongView.resx due to its being in the Internet or Restricted zone or having the mark of the web on the file. Remove the mark of the web if you want to process these files.`
@@ -36,8 +36,8 @@
 * Option 2 
     * Click on the releases tab of the project in Github
     * Click on the .exe file
-    * save the file 
-    * open the folder it was downloaded into
+    * Save the file 
+    * Open the folder it was downloaded into
     * Run the .exe file 
 
 ## Note
