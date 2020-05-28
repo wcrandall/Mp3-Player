@@ -48,9 +48,9 @@ namespace MediaPlayer
             return MediaDatabase.getAlbumsByArtist(artist);
         }
 
-        public void updateDatabase()
+        public Boolean updateDatabase()
         {
-            MediaDatabase.updateDatabase();
+            return MediaDatabase.updateDatabase();
         }
 
         public List<Song> getSongsByArtist(string artist)
