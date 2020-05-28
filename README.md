@@ -22,7 +22,15 @@
     * If zip is downloaded, extract the zip file. 
     * go into the folder the project is in 
     * Open the .sln file with Visual Studio 
+    * Right click on the solution and click manage nuget packages 
+    * search for Microsoft.WindowsAPICodePack.Shell
+    * Install it
     * Click Start
+    * Note: mark of the web error is encountered 
+      * Go to the MediaPlayer folder
+      * Right click SongView.resx
+      * Click properties
+      * 
 * Option 2 
     * Click on the releases tab of the project in Github
     * Click on the .exe file
