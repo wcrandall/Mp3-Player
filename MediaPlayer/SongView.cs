@@ -11,12 +11,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 //using MediaPlayer.Model;
 using static System.Windows.Forms.ListView;
+using Microsoft.WindowsAPICodePack.Dialogs;
+using System.IO;
 
 namespace MediaPlayer
 {
     public partial class SongView : Form
     {
-        
+
 
         // Declare the nofify constant
         public const int MM_MCINOTIFY = 0x3B9;
@@ -34,13 +36,29 @@ namespace MediaPlayer
             if (Properties.Settings.Default.isFirstOpen)
             {
                 getNewDatabasePath();
-                mediaPlayerController.updateDatabase();
-                Properties.Settings.Default.isFirstOpen = false;
-                Properties.Settings.Default.Save();
+                Boolean wasSuccessful = mediaPlayerController.updateDatabase();
+                if (wasSuccessful)
+                {
+                    Properties.Settings.Default.isFirstOpen = false;
+                    Properties.Settings.Default.Save();
+                }
+                else
+                {
+                    MessageBox.Show("Access denied. Ensure you have rights to access all folders and files in " +  Properties.Settings.Default.databasePath, "Access Denied");
+                    System.Environment.Exit(0);
+                }
             }
             else if (Properties.Settings.Default.updateDatabase)
             {
-                mediaPlayerController.updateDatabase();
+                Boolean wasSuccessful = mediaPlayerController.updateDatabase();
+                if (!wasSuccessful)
+                {
+                    MessageBox.Show("Access denied. Ensure you have rights to access all folders and files in " + Properties.Settings.Default.databasePath + "\n " +
+                                   "Reverting to previous directory " + Properties.Settings.Default.oldDatabasePath, "Access Denied");
+                    Properties.Settings.Default.databasePath = Properties.Settings.Default.oldDatabasePath;
+                    Properties.Settings.Default.Save();
+                    mediaPlayerController.updateDatabase(); 
+                }
                 Properties.Settings.Default.updateDatabase = false;
                 Properties.Settings.Default.Save();
             }
@@ -414,28 +432,25 @@ namespace MediaPlayer
         }
         private void getNewDatabasePath()
         {
-
-            using (var folderBrowserDialog = new FolderBrowserDialog())
+            Properties.Settings.Default.oldDatabasePath = Properties.Settings.Default.databasePath;
+            Properties.Settings.Default.Save();
+            CommonOpenFileDialog commonOpenFileDialog = new CommonOpenFileDialog();
+            commonOpenFileDialog.InitialDirectory = "C:\\Users";
+            commonOpenFileDialog.IsFolderPicker = true;
+            commonOpenFileDialog.Title = "Enter Music Folder Directory";
+            var dialogResult = commonOpenFileDialog.ShowDialog();
+            
+            if ( dialogResult == CommonFileDialogResult.Ok && !string.IsNullOrWhiteSpace(commonOpenFileDialog.FileName))
             {
-                folderBrowserDialog.Description = "Select the directory your music is in."; 
-                DialogResult dialogResult = folderBrowserDialog.ShowDialog();
 
-                if (dialogResult == DialogResult.OK && !string.IsNullOrWhiteSpace(folderBrowserDialog.SelectedPath))
-                {
-                    Properties.Settings.Default.databasePath = folderBrowserDialog.SelectedPath;
-                    Properties.Settings.Default.Save();
-                }
-                else if (dialogResult == DialogResult.Cancel)
-                {
-                    if (Properties.Settings.Default.isFirstOpen)
-                    {
-                        System.Environment.Exit(0);
-                    }
-                }
+                Properties.Settings.Default.databasePath = commonOpenFileDialog.FileName;
+                Properties.Settings.Default.Save();
+                
             }
-
-           
-
+            else if (dialogResult == CommonFileDialogResult.Cancel && Properties.Settings.Default.isFirstOpen)
+            {
+                System.Environment.Exit(0);
+            }
         }
         private void SetNewFilePathToolStripMenuItem_Click(object sender, EventArgs e)
         {
