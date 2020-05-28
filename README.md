@@ -26,12 +26,12 @@
     * search for Microsoft.WindowsAPICodePack.Shell
     * Install it
     * Click Start
-    * Note: mark of the web error is encountered 
+    * Note: If an error is given saying `Couldn't process file SongView.resx due to its being in the Internet or Restricted zone or having the mark of the web on the file. Remove the mark of the web if you want to process these files.`
       * Go to the MediaPlayer folder
       * Right click SongView.resx
       * Click properties
       * Click the General tab
-      * At the bottom by where it says `This file came from another computer and might be blocked to help protect this computer` Click unblock 
+      * At the bottom by where it says `This file came from another computer and might be blocked to help protect this computer` Click 'Unblock' 
       * Close Visual Studio, reopen the project, and click Start
 * Option 2 
     * Click on the releases tab of the project in Github
