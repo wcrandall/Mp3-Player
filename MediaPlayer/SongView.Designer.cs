@@ -43,7 +43,6 @@
             this.shuffleButton = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.updateDatabaseNextOpeningToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setNewFilePathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -222,23 +221,15 @@
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.updateDatabaseNextOpeningToolStripMenuItem,
             this.setNewFilePathToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.optionsToolStripMenuItem.Text = "Options";
             // 
-            // updateDatabaseNextOpeningToolStripMenuItem
-            // 
-            this.updateDatabaseNextOpeningToolStripMenuItem.Name = "updateDatabaseNextOpeningToolStripMenuItem";
-            this.updateDatabaseNextOpeningToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.updateDatabaseNextOpeningToolStripMenuItem.Text = "Update Database Next Opening";
-            this.updateDatabaseNextOpeningToolStripMenuItem.Click += new System.EventHandler(this.UpdateDatabaseNextOpeningToolStripMenuItem_Click);
-            // 
             // setNewFilePathToolStripMenuItem
             // 
             this.setNewFilePathToolStripMenuItem.Name = "setNewFilePathToolStripMenuItem";
-            this.setNewFilePathToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            this.setNewFilePathToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.setNewFilePathToolStripMenuItem.Text = "Set New File Path";
             this.setNewFilePathToolStripMenuItem.Click += new System.EventHandler(this.SetNewFilePathToolStripMenuItem_Click);
             // 
@@ -252,6 +243,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "SongView";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Song Player";
             this.Load += new System.EventHandler(this.SongView_Load);
             this.Resize += new System.EventHandler(this.SongView_Resize);
@@ -280,7 +272,6 @@
         private System.Windows.Forms.Button shuffleButton;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem updateDatabaseNextOpeningToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem setNewFilePathToolStripMenuItem;
     }
 }

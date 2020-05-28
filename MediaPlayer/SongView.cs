@@ -37,35 +37,15 @@ namespace MediaPlayer
             {
                 getNewDatabasePath();
                 Boolean wasSuccessful = mediaPlayerController.updateDatabase();
-                if (wasSuccessful)
-                {
-                    Properties.Settings.Default.isFirstOpen = false;
-                    Properties.Settings.Default.Save();
-                }
-                else
-                {
-                    MessageBox.Show("Access denied. Ensure you have rights to access all folders and files in " +  Properties.Settings.Default.databasePath, "Access Denied");
-                    System.Environment.Exit(0);
-                }
+                wasDatabaseUpdateSuccessful(wasSuccessful);
             }
-            else if (Properties.Settings.Default.updateDatabase)
+            else
             {
                 Boolean wasSuccessful = mediaPlayerController.updateDatabase();
-                if (!wasSuccessful)
-                {
-                    MessageBox.Show("Access denied. Ensure you have rights to access all folders and files in " + Properties.Settings.Default.databasePath + "\n " +
-                                   "Reverting to previous directory " + Properties.Settings.Default.oldDatabasePath, "Access Denied");
-                    Properties.Settings.Default.databasePath = Properties.Settings.Default.oldDatabasePath;
-                    Properties.Settings.Default.Save();
-                    mediaPlayerController.updateDatabase(); 
-                }
-                Properties.Settings.Default.updateDatabase = false;
-                Properties.Settings.Default.Save();
+                wasDatabaseUpdateSuccessful(wasSuccessful);
+                
             }
-            initializeListView(); 
-            populateList();
-            populateArtistList();
-            populateAlbumList();
+            initializeListView();
 
             createAndAddHeaderSongListView("Song");
             createAndAddHeaderSongListView("Album");
@@ -73,8 +53,46 @@ namespace MediaPlayer
             createAndAddHeaderSongListView("Duration");
             songListView.FullRowSelect = true;
             sortByAlbumListView.FullRowSelect = true;
-            sortByArtistListView.FullRowSelect = true; 
+            sortByArtistListView.FullRowSelect = true;
+            updatingGUI();
+            
 
+
+
+        }
+        private void wasDatabaseUpdateSuccessful(Boolean wasSuccessful)
+        {
+            if (!Properties.Settings.Default.isFirstOpen)
+            {
+                if (!wasSuccessful)
+                {
+                    MessageBox.Show("Access denied. Ensure you have rights to access all folders and files in " + Properties.Settings.Default.databasePath + "\n " +
+                                   "Reverting to previous directory " + Properties.Settings.Default.oldDatabasePath, "Access Denied");
+                    Properties.Settings.Default.databasePath = Properties.Settings.Default.oldDatabasePath;
+                    Properties.Settings.Default.Save();
+                    mediaPlayerController.updateDatabase();
+                }
+            }
+            else
+            {
+                if (wasSuccessful)
+                {
+                    Properties.Settings.Default.isFirstOpen = false;
+                    Properties.Settings.Default.Save();
+                }
+                else
+                {
+                    MessageBox.Show("Access denied. Ensure you have rights to access all folders and files in " + Properties.Settings.Default.databasePath, "Access Denied");
+                    System.Environment.Exit(0);
+                }
+            }
+        }
+        private void updatingGUI()
+        {
+            populateList();
+            populateArtistList();
+            populateAlbumList();
+            resizeColumnHeaders();
 
         }
         private void resizeColumnHeaders()
@@ -322,26 +340,33 @@ namespace MediaPlayer
         // goes to the next song
         private void NextSongButton_Click(object sender, EventArgs e)
         {
-            nextSongIsPressedAlready = false;
-            if (!nextSongIsPressedAlready)
+            if (!isFirstSong)
             {
-                // setting up variables needed for getting a list of songs
-                int songsInListView = songListView.Items.Count;
-                ListViewItem[] items = new ListViewItem[songsInListView];
-                songListView.Items.CopyTo(items, 0);
-                int[] ids = new int[songsInListView];
-                int i = 0;
-
-                foreach (ListViewItem item in items)
-                {
-                    ids[i] = Convert.ToInt32(item.SubItems[4].Text);
-                    i++;
-                }
-                updateCurrentSong(mediaPlayerController.nextSong(ids,isShuffleOn,this.Handle));
-                
-
-
                 nextSongIsPressedAlready = false;
+                if (!nextSongIsPressedAlready)
+                {
+
+                    // setting up variables needed for getting a list of songs
+                    int songsInListView = songListView.Items.Count;
+                    if (songsInListView != 0)
+                    {
+                        ListViewItem[] items = new ListViewItem[songsInListView];
+                        songListView.Items.CopyTo(items, 0);
+                        int[] ids = new int[songsInListView];
+                        int i = 0;
+
+                        foreach (ListViewItem item in items)
+                        {
+                            ids[i] = Convert.ToInt32(item.SubItems[4].Text);
+                            i++;
+                        }
+                        updateCurrentSong(mediaPlayerController.nextSong(ids, isShuffleOn, this.Handle));
+
+
+
+                        nextSongIsPressedAlready = false;
+                    }
+                }
             }
             nextSongIsPressedAlready = true;
             
@@ -417,19 +442,7 @@ namespace MediaPlayer
 
         }
 
-        private void UpdateDatabaseNextOpeningToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (Properties.Settings.Default.updateDatabase)
-            {
-                Properties.Settings.Default.updateDatabase = false;
-                Properties.Settings.Default.Save();
-            }
-            else
-            {
-                Properties.Settings.Default.updateDatabase = true;
-                Properties.Settings.Default.Save();
-            }
-        }
+
         private void getNewDatabasePath()
         {
             Properties.Settings.Default.oldDatabasePath = Properties.Settings.Default.databasePath;
@@ -458,7 +471,10 @@ namespace MediaPlayer
             if(MediaDatabase.path != Properties.Settings.Default.databasePath)
             {
                 Properties.Settings.Default.updateDatabase = true;
-                Properties.Settings.Default.Save(); 
+                Properties.Settings.Default.Save();
+                Boolean wasSuccessful = mediaPlayerController.updateDatabase();
+                wasDatabaseUpdateSuccessful(wasSuccessful);
+                updatingGUI();
             }
         }
 
