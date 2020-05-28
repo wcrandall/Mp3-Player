@@ -99,7 +99,7 @@ namespace MediaPlayer
         {
             sortByArtistListView.Items.Clear();
             List<string> artists = mediaPlayerController.getAllArtists();
-            ListViewItem allArtists = new ListViewItem(new String[] { "All artists" });
+            ListViewItem allArtists = new ListViewItem(new String[] { "All Artists" });
             sortByArtistListView.Items.Add(allArtists); 
             foreach(string artist in artists)
             {
@@ -114,7 +114,7 @@ namespace MediaPlayer
         {
             sortByAlbumListView.Items.Clear();
             List<string> albums = mediaPlayerController.getAllAlbums();
-            ListViewItem allAlbums = new ListViewItem(new String[] { "All albums" });
+            ListViewItem allAlbums = new ListViewItem(new String[] { "All Albums" });
             sortByAlbumListView.Items.Add(allAlbums); 
             foreach(string album in albums)
             {
@@ -131,7 +131,7 @@ namespace MediaPlayer
             sortByAlbumListView.Items.Clear();
             List<string> albums = mediaPlayerController.getAllAlbumsForArtist(artist);
 
-            ListViewItem allAlbums = new ListViewItem(new String[] { "All albums" });
+            ListViewItem allAlbums = new ListViewItem(new String[] { "All Albums" });
             sortByAlbumListView.Items.Add(allAlbums); 
 
             foreach(string album in albums)
@@ -333,7 +333,7 @@ namespace MediaPlayer
         {
             if (sortByArtistListView.SelectedItems.Count > 0)
             {
-                if (sortByArtistListView.SelectedItems[0].Text != "All artists")
+                if (sortByArtistListView.SelectedItems[0].Text != "All Artists")
                 {
                     ListViewItem item = sortByArtistListView.SelectedItems[0];
 
@@ -356,7 +356,7 @@ namespace MediaPlayer
         {
             if (sortByAlbumListView.SelectedItems.Count > 0)
             {
-                if (sortByAlbumListView.SelectedItems[0].Text != "All albums")
+                if (sortByAlbumListView.SelectedItems[0].Text != "All Albums")
                 {
                     ListViewItem item = sortByAlbumListView.SelectedItems[0];
                     string album = item.SubItems[0].Text;
@@ -364,7 +364,7 @@ namespace MediaPlayer
                 }
                 else
                 {
-                    if (sortByArtistListView.SelectedItems.Count > 0 && sortByArtistListView.SelectedItems[0].Text!="All artists")
+                    if (sortByArtistListView.SelectedItems.Count > 0 && sortByArtistListView.SelectedItems[0].Text!="All Artists")
                     {
                         ListViewItem item = sortByArtistListView.SelectedItems[0];
                         string artist = item.SubItems[0].Text;
@@ -414,45 +414,27 @@ namespace MediaPlayer
         }
         private void getNewDatabasePath()
         {
-            StringBuilder databasePath;
 
-            Properties.Settings.Default.oldDatabasePath = Properties.Settings.Default.databasePath;
-            Properties.Settings.Default.Save();
-
-                if (Properties.Settings.Default.isFirstOpen)
-                {
-                    databasePath = new StringBuilder(Interaction.InputBox("Invalid path was entered. Please Enter a valid path or click Cancel. Where is your music?", "Database Path", "Enter Directory Here"));
-                }
-                else
-                {
-                    databasePath = new StringBuilder(Interaction.InputBox("Invalid path was entered. Please Enter a valid path or click Cancel. Where is your music?\nNote: Must restart for new music to show", "Database Path", "Enter Directory Here"));
-                }
-            while (!System.IO.Directory.Exists(databasePath.ToString()) && databasePath.ToString() != "")
+            using (var folderBrowserDialog = new FolderBrowserDialog())
             {
-                if (Properties.Settings.Default.isFirstOpen)
+                folderBrowserDialog.Description = "Select the directory your music is in."; 
+                DialogResult dialogResult = folderBrowserDialog.ShowDialog();
+
+                if (dialogResult == DialogResult.OK && !string.IsNullOrWhiteSpace(folderBrowserDialog.SelectedPath))
                 {
-                    databasePath = new StringBuilder(Interaction.InputBox("Invalid path was entered. Please Enter a valid path or click Cancel. Where is your music?", "Database Path", "Enter Directory Here"));
+                    Properties.Settings.Default.databasePath = folderBrowserDialog.SelectedPath;
+                    Properties.Settings.Default.Save();
                 }
-                else
+                else if (dialogResult == DialogResult.Cancel)
                 {
-                    databasePath = new StringBuilder(Interaction.InputBox("Invalid path was entered. Please Enter a valid path or click Cancel. Where is your music?\nNote: Must restart for new music to show", "Database Path", "Enter Directory Here"));
+                    if (Properties.Settings.Default.isFirstOpen)
+                    {
+                        System.Environment.Exit(0);
+                    }
                 }
             }
 
-
-            if (databasePath.ToString() == "")
-            {
-                if (Properties.Settings.Default.isFirstOpen)
-                {
-                    System.Environment.Exit(0);
-                }
-                Properties.Settings.Default.databasePath = Properties.Settings.Default.oldDatabasePath;
-            }
-            else
-            {
-                Properties.Settings.Default.databasePath = databasePath.ToString();
-                Properties.Settings.Default.Save();
-            }
+           
 
         }
         private void SetNewFilePathToolStripMenuItem_Click(object sender, EventArgs e)
