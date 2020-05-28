@@ -18,6 +18,8 @@
 ## Installing/Running the application  
 * Option 1 
     * Download the zip, pull, or clone the project from github
+    * If zip is downloaded, extract the zip file. 
+    * go into the folder the project is in 
     * Open the .sln file with Visual Studio 
     * Click Start
 * Option 2 
