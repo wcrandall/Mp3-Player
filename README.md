@@ -30,7 +30,9 @@
       * Go to the MediaPlayer folder
       * Right click SongView.resx
       * Click properties
-      * 
+      * Click the General tab
+      * At the bottom by where it says `This file came from another computer and might be blocked to help protect this computer` Click unblock 
+      * Close Visual Studio, reopen the project, and click Start
 * Option 2 
     * Click on the releases tab of the project in Github
     * Click on the .exe file
