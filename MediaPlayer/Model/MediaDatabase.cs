@@ -13,7 +13,7 @@ namespace MediaPlayer
     {
         public static string path = "";
 
-        public static void updateDatabase()
+        public static Boolean updateDatabase()
         {
 
 
@@ -28,53 +28,78 @@ namespace MediaPlayer
                     
                 }
 
-         
+
 
             // if database doesn't exist create
             if (MediaDatabase.checkExistance() != true)
             {
+                string[] artists;
                 createTable();
-                string[] artists = Directory.GetDirectories(Properties.Settings.Default.databasePath);
-                foreach (string oneArtist in artists)
+                try
                 {
-                    string[] albums = Directory.GetDirectories(oneArtist);
-                    foreach (string oneAlbum in albums)
+                    artists = Directory.GetDirectories(Properties.Settings.Default.databasePath);
+                }
+                catch
+                {
+                    return false;
+                }
+
+                    foreach (string oneArtist in artists)
                     {
-                        DirectoryInfo dir = new DirectoryInfo(oneAlbum);
-
-
-                        //get files 
-                        foreach (FileInfo flinfo in dir.GetFiles())
+                        string[] albums; 
+                        try
                         {
+                            albums = Directory.GetDirectories(oneArtist);
+                        }
+                        catch
+                        {
+                            return false; 
+                        }
+                        foreach (string oneAlbum in albums)
+                        {
+                            DirectoryInfo dir = new DirectoryInfo(oneAlbum);
 
-                            string name = flinfo.Name;
-
-                            if (name.Contains(".mp3") || name.Contains(".wav"))
+                            try
                             {
-
-
-
-                                string pathAndName = oneAlbum + "\\" + name;
-                                var tfile = TagLib.File.Create(@pathAndName);
-                                string title = tfile.Tag.Title;
-                                //MessageBox.Show(title);
-                                string album = tfile.Tag.Album;
-                                //MessageBox.Show(album);
-                                string artist = tfile.Tag.FirstAlbumArtist;
-                                TimeSpan duration = tfile.Properties.Duration;
-
-                                Song song = new Song(name, artist, title, album, duration, pathAndName);
-
-                                insertMp3(song);
+                                Directory.GetFiles(oneAlbum);
                             }
-                            else
+                            catch
                             {
-                                continue;
+                                return false; 
+                            }
+                            //get files 
+                            foreach (FileInfo flinfo in dir.GetFiles())
+                            {
+
+                                string name = flinfo.Name;
+
+                                if (name.Contains(".mp3") || name.Contains(".wav"))
+                                {
+
+
+
+                                    string pathAndName = oneAlbum + "\\" + name;
+                                    var tfile = TagLib.File.Create(@pathAndName);
+                                    string title = tfile.Tag.Title;
+                                    string album = tfile.Tag.Album;
+                                    string artist = tfile.Tag.FirstAlbumArtist;
+                                    TimeSpan duration = tfile.Properties.Duration;
+
+                                    Song song = new Song(name, artist, title, album, duration, pathAndName);
+
+                                    insertMp3(song);
+                                }
+                                else
+                                {
+                                    continue;
+                                }
                             }
                         }
                     }
-                }
+                
+            
             }
+            return true;
         }
 
         // Gets the path and name of database 
