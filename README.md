@@ -24,8 +24,9 @@
     * Open the .sln file with Visual Studio 
     * Right click on the solution and click manage nuget packages 
     * Search for `Microsoft.WindowsAPICodePack.Shell` Ensure it is the one by `Licshee` and `Version 1.1.0`
-    * Install it
-    * Click Start
+    * Check the project `MediaPlayer\MediaPlayer.csproj`
+    * Click install
+    * Than click start to run the project
     * Note: If an error is given saying `Couldn't process file SongView.resx due to its being in the Internet or Restricted zone or having the mark of the web on the file. Remove the mark of the web if you want to process these files.`
       * Go to the MediaPlayer folder
       * Right click SongView.resx
