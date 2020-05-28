@@ -12,6 +12,7 @@
 * Dependencies 
     * sqlite-net-pcl
     * TagLibSharp 
+    * Microsoft.WindowsAPICodePack.Shell
     
 <img title="Mp3PlayerHomescreen" alt="Mp3PlayerHomescreen" src="MediaPlayer\Images\Mp3PlayerHomescreen.PNG">
 
