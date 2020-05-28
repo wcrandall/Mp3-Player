@@ -24,6 +24,10 @@
     * Open the .sln file with Visual Studio 
     * Click Start
 * Option 2 
+    * Click on the releases tab of the project in Github
+    * Click on the .exe file
+    * save the file 
+    * open the folder it was downloaded into
     * Run the .exe file 
 
 ## Note
