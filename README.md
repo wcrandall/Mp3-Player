@@ -17,19 +17,20 @@
 
 ## Installing/Running the application  
 * Option 1 
+    * Download the zip, pull, or clone the project from github
     * Open the .sln file with Visual Studio 
     * Click Start
 * Option 2 
     * Run the .exe file 
 
 ## Note
-* Music must be stored in the user's chosen directory in this manner `chosenDirectory\artistName\albumName\songs.mp3`
+* Music must be stored in the user's chosen directory in this manner: `chosenDirectory\artistName\albumName\songs.mp3`
 
 
-### Clone
-* Clone this repo to your local machine using https://github.com/wcrandall/Mp3Player.git
+## Clone
+* Clone this repo to your local machine using `git clone https://github.com/wcrandall/Mp3Player.git`
 
-### Contributors 
+## Contributors 
 * <a href="https://github.com/wcrandall"> Wyatt Crandall </a> 
 
 
