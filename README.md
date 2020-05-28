@@ -18,8 +18,8 @@
 
 ## Installing/Running the application  
 * Option 1 
-    * Download the zip, pull, or clone <a href="https://github.com/wcrandall/Mp3-Player">the project from github</a>
-    * If zip is downloaded, extract the zip file. 
+    * Download the zip, pull, or clone <a href="https://github.com/wcrandall/Mp3-Player">the project from GitHub</a>
+    * If zip is downloaded, extract the zip file
     * Go into the folder the project is in 
     * Open the .sln file with Visual Studio 
     * Right click on the solution and click manage nuget packages 
@@ -35,7 +35,7 @@
       * At the bottom by where it says `This file came from another computer and might be blocked to help protect this computer` Click 'Unblock' 
       * Close Visual Studio, reopen the project, and click Start
 * Option 2 
-    * Click on the releases tab of the project in Github
+    * Click on the releases tab of the project in GitHub
     * Click on the .exe file
     * Save the file 
     * Open the folder it was downloaded into
