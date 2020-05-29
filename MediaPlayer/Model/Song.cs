@@ -5,6 +5,7 @@ using System;
 namespace MediaPlayer
 {
 
+    // a class that models a single row of the Song table in the database 
     public class Song 
     {
         [PrimaryKey, AutoIncrement]

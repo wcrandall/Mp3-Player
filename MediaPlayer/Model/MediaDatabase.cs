@@ -7,7 +7,6 @@ namespace MediaPlayer
 {
     class MediaDatabase
     {
-        public static string path = "";
 
         public static Boolean updateDatabase()
         {
