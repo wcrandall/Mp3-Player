@@ -1,18 +1,9 @@
-﻿using Microsoft.VisualBasic;
+﻿//using MediaPlayer.Model;
+using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-//using MediaPlayer.Model;
-using static System.Windows.Forms.ListView;
-using Microsoft.WindowsAPICodePack.Dialogs;
-using System.IO;
 
 namespace MediaPlayer
 {
@@ -37,12 +28,17 @@ namespace MediaPlayer
             {
                 getNewDatabasePath();
                 Boolean wasSuccessful = mediaPlayerController.updateDatabase();
-                wasDatabaseUpdateSuccessful(wasSuccessful);
+                displayPromptIfDatabaseUpdateUnsuccessful(wasSuccessful);
+                if(wasSuccessful)
+                {
+                    Properties.Settings.Default.oldDatabasePath = Properties.Settings.Default.databasePath;
+                    Properties.Settings.Default.Save();
+                }
             }
             else
             {
                 Boolean wasSuccessful = mediaPlayerController.updateDatabase();
-                wasDatabaseUpdateSuccessful(wasSuccessful);
+                displayPromptIfDatabaseUpdateUnsuccessful(wasSuccessful);
                 
             }
             initializeListView();
@@ -60,7 +56,7 @@ namespace MediaPlayer
 
 
         }
-        private void wasDatabaseUpdateSuccessful(Boolean wasSuccessful)
+        private void displayPromptIfDatabaseUpdateUnsuccessful(Boolean wasSuccessful)
         {
             if (!Properties.Settings.Default.isFirstOpen)
             {
@@ -445,8 +441,7 @@ namespace MediaPlayer
 
         private void getNewDatabasePath()
         {
-            Properties.Settings.Default.oldDatabasePath = Properties.Settings.Default.databasePath;
-            Properties.Settings.Default.Save();
+
             CommonOpenFileDialog commonOpenFileDialog = new CommonOpenFileDialog();
             commonOpenFileDialog.InitialDirectory = "C:\\Users";
             commonOpenFileDialog.IsFolderPicker = true;
@@ -473,9 +468,11 @@ namespace MediaPlayer
             {
 
                 Boolean wasSuccessful = mediaPlayerController.updateDatabase();
-                wasDatabaseUpdateSuccessful(wasSuccessful);
+                displayPromptIfDatabaseUpdateUnsuccessful(wasSuccessful);
                 if (wasSuccessful)
                 {
+                    Properties.Settings.Default.oldDatabasePath = Properties.Settings.Default.databasePath;
+                    Properties.Settings.Default.Save();
                     updatingGUI();
                 }
             }
