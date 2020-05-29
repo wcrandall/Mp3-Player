@@ -229,7 +229,7 @@
             // setNewFilePathToolStripMenuItem
             // 
             this.setNewFilePathToolStripMenuItem.Name = "setNewFilePathToolStripMenuItem";
-            this.setNewFilePathToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.setNewFilePathToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             this.setNewFilePathToolStripMenuItem.Text = "Set New File Path";
             this.setNewFilePathToolStripMenuItem.Click += new System.EventHandler(this.SetNewFilePathToolStripMenuItem_Click);
             // 
@@ -245,7 +245,6 @@
             this.Name = "SongView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Song Player";
-            this.Load += new System.EventHandler(this.SongView_Load);
             this.Resize += new System.EventHandler(this.SongView_Resize);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
