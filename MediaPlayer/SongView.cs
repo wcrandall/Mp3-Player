@@ -468,13 +468,16 @@ namespace MediaPlayer
         private void SetNewFilePathToolStripMenuItem_Click(object sender, EventArgs e)
         {
             getNewDatabasePath();
+            MessageBox.Show("media " + MediaDatabase.path + " new " + Properties.Settings.Default.databasePath);
             if(MediaDatabase.path != Properties.Settings.Default.databasePath)
             {
-                Properties.Settings.Default.updateDatabase = true;
-                Properties.Settings.Default.Save();
+
                 Boolean wasSuccessful = mediaPlayerController.updateDatabase();
                 wasDatabaseUpdateSuccessful(wasSuccessful);
-                updatingGUI();
+                if (wasSuccessful)
+                {
+                    updatingGUI();
+                }
             }
         }
 
